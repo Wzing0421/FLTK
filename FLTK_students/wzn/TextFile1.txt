@@ -1,8 +1,4 @@
 
-void funtion({
-	background(2);
-}
-
 background();
 
 ImageButton button1(x,y,image,void*£¨function));
