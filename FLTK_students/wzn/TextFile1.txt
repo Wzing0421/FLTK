@@ -1,0 +1,24 @@
+
+void funtion({
+	background(2);
+}
+
+background();
+
+ImageButton button1(x,y,image,void*£¨function));
+
+
+
+
+class ImageButton{
+//Construct
+ImageButton(int x,int y,image, void*fun):fun(fun)
+//Overload
+int handle(int event){
+	if(PUSH)
+	fun();
+}
+
+private:
+	fun;
+};

@@ -1,0 +1,94 @@
+﻿生成启动时间为 2019/6/9 23:03:46。
+     1>项目“E:\VS2013_code\FLTK_students\wzn\fltk_test\fltk_test.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /D _MBCS /D WIN32 /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Graph.cpp main.cpp Simple_window.cpp Window.cpp
+         Window.cpp
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(126): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(131): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(136): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(295): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(437): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(455): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\window.cpp(74): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\window.cpp(76): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): warning C4018: “<”: 有符号/无符号不匹配
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): 编译类 模板 成员函数“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”时
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(116): 参见对正在编译的函数 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”的引用
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(118): 参见对正在编译的类 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>”的引用
+         Simple_window.cpp
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(126): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(131): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(136): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(295): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(437): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(455): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): warning C4018: “<”: 有符号/无符号不匹配
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): 编译类 模板 成员函数“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”时
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(116): 参见对正在编译的函数 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”的引用
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(118): 参见对正在编译的类 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>”的引用
+         main.cpp
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(126): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(131): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(136): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(295): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(437): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(455): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\main.cpp(83): warning C4129: “i”: 不可识别的字符转义序列
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\main.cpp(118): warning C4129: “i”: 不可识别的字符转义序列
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\main.cpp(122): warning C4129: “i”: 不可识别的字符转义序列
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\main.cpp(190): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): warning C4018: “<”: 有符号/无符号不匹配
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): 编译类 模板 成员函数“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”时
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(116): 参见对正在编译的函数 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”的引用
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(118): 参见对正在编译的类 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>”的引用
+         Graph.cpp
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.cpp(65): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.cpp(131): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.cpp(132): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.cpp(406): warning C4018: “>=”: 有符号/无符号不匹配
+         正在生成代码...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\include /I.\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /D _MBCS /D WIN32 /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GUI.cpp
+         GUI.cpp
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(46): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4305: “初始化”: 从“Graph_lib::Color::Transparency”到“char”截断
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(48): warning C4309: “初始化”: 截断常量值
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(126): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(131): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(136): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(295): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(437): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(455): warning C4018: “<=”: 有符号/无符号不匹配
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): warning C4018: “<”: 有符号/无符号不匹配
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\graph.h(131): 编译类 模板 成员函数“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”时
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(116): 参见对正在编译的函数 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>::~Vector_ref(void)”的引用
+                 e:\vs2013_code\fltk_students\wzn\fltk_test\gui.h(118): 参见对正在编译的类 模板 实例化“Graph_lib::Vector_ref<Graph_lib::Button>”的引用
+     1>e:\vs2013_code\fltk_students\wzn\fltk_test\gui.cpp(136): warning C4715: “Graph_lib::namebutton::getUsrname”: 不是所有的控件路径都返回值
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\VS2013_code\FLTK_students\wzn\Debug\fltk_test.exe" /INCREMENTAL /NOLOGO /LIBPATH:.\lib fltkd.lib fltkformsd.lib fltkgld.lib wsock32.lib comctl32.lib fltkjpegd.lib fltkpngd.lib fltkimagesd.lib fltkzlibd.lib json_vc71_libmtd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libcd.lib /NODEFAULTLIB:LIBCMTD.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\VS2013_code\FLTK_students\wzn\Debug\fltk_test.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\VS2013_code\FLTK_students\wzn\Debug\fltk_test.lib" /MACHINE:X86 Debug\Graph.obj
+         Debug\GUI.obj
+         Debug\main.obj
+         Debug\Simple_window.obj
+         Debug\Window.obj
+         fltk_test.vcxproj -> E:\VS2013_code\FLTK_students\wzn\Debug\fltk_test.exe
+     1>已完成生成项目“E:\VS2013_code\FLTK_students\wzn\fltk_test\fltk_test.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:07.83

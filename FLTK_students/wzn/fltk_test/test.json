@@ -1,0 +1,19 @@
+{
+   "array" : [
+      "array_element_one",
+      "array_element_two",
+      33333,
+      {
+         "count" : null,
+         "name" : "”ÔŒƒ",
+         "percent" : 12.34567890,
+         "right" : true,
+         "score" : 80
+      }
+   ],
+   "name" : "json array",
+   "object" : {
+      "name" : "”¢”Ô"
+   }
+}
+

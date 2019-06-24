@@ -1,0 +1,283 @@
+﻿
+//
+// This is example code from Chapter 12.3 "A first example" of
+// "Programming -- Principles and Practice Using C++" by Bjarne Stroustrup
+//
+
+#include "Simple_window.h"    // get access to our window library
+#include "Graph.h"            // get access to our graphics library facilities
+#include "GUI.h"
+
+#include <FL/Fl_PNG_Image.H>
+#include <FL/Fl_JPEG_Image.H>
+#include <FL/Fl_Image.H>
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Box.H>
+#include "Window.h"
+
+#include<fstream>
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <stdlib.h>
+#include <map>
+#include "json.h"
+
+#define HEIGHT 699
+#define WIDTH 323
+#define MARGIN 4
+
+using namespace std;
+
+int posInusrinfo = 0;
+map<string, string>usrdata;
+void cb() {}
+void but_cb(Fl_Widget* o, void*) {
+	Fl_Button* b = (Fl_Button*)o;
+	b->label("Good job"); //redraw not necessary
+
+	b->resize(10, 150, 140, 30); //redraw needed
+	b->redraw();
+}
+int withFltk()
+{
+	
+	Fl_Window     win(WIDTH, HEIGHT);//在Fl_Window的声明和win.show之间就是所有的控件的逻辑
+
+	//Background tel(0, 0, WIDTH, HEIGHT);
+	//Fl_PNG_Image  tel_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\tel.png");
+	//tel.image(tel_png);
+
+	/*Fl_Box *usrlist[10];
+	for (int i = 0; i < 10; i++){
+		
+		usrlist[i] = new Fl_Box(1, 50+50*i, 322, 50, "");
+		usrlist[i]->box(FL_UP_BOX);
+		//usrlist[i]->labelsize(36);
+		usrlist[i]->labelfont(FL_BOLD + FL_ITALIC);
+		//usrlist[i]->labeltype(FL_SHADOW_LABEL);
+		//usrlist[i]->label(s[i].data());
+	}
+	map<string, string> ::iterator it = usrdata.begin();
+	int cnt = 0;
+	while (cnt <= 9 && it != usrdata.end()){
+		usrlist[cnt]->label(it->first.data());
+		cnt++;
+		it++;
+	}*/
+
+	Fl_Box tongxinlu(0,0,323,50);
+	Fl_PNG_Image  tong_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\tong.png");
+	tongxinlu.image(tong_png);
+
+
+    //现在改成自定义的按钮了
+	namebutton *usrlist[10];
+	for (int i = 0; i < 10; i++){
+
+		usrlist[i] = new namebutton(1, 50 + 50 * i, 322, 50);
+		usrlist[i]->box(FL_UP_BOX);
+		//usrlist[i]->labelsize(36);
+		usrlist[i]->labelfont(FL_BOLD + FL_ITALIC);
+		//usrlist[i]->labeltype(FL_SHADOW_LABEL);
+		//usrlist[i]->label(s[i].data());
+	}
+	map<string, string> ::iterator it = usrdata.begin();
+	int cnt = 0;
+	while (cnt <= 9 && it != usrdata.end()){
+		usrlist[cnt]->label(it->first.data());
+		cnt++;
+		it++;
+	}
+
+
+
+	upbutton upbtn(60, 600, 80, 40, usrlist);
+	upbtn.box(FL_UP_BOX);
+	upbtn.label("Last page");
+
+	downbutton dwnbtn(180, 600, 80, 40, usrlist);
+	dwnbtn.box(FL_UP_BOX);
+	dwnbtn.label("Next page");
+
+
+	Background bg(0, 0, WIDTH, HEIGHT);
+	Fl_PNG_Image  bg_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\bg.png");
+	bg.image(bg_png);
+
+	ImageButton        btn(MARGIN, HEIGHT - 64 - MARGIN, 64, 64, &bg);
+	Fl_PNG_Image  btn_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\button\\i1.png");
+	btn.image(btn_png);
+
+	win.show();
+	return(Fl::run());
+
+}
+
+void writeJson(const char *filename){//写json信息
+	
+	Json::Reader reader;
+	Json::Value root;
+
+	ifstream is;
+	is.open(filename, std::ios::binary);
+	if (reader.parse(is, root)){//现在root是根节点了
+		Json::Value arrayobj;//这是二级节点
+		arrayobj["id"] = "abm";
+		arrayobj["telnum"] = "15650709503";
+		root.append(arrayobj);
+
+		arrayobj["id"] = "lyrt";
+		arrayobj["telnum"] = "15620309003";
+		root.append(arrayobj);
+
+		arrayobj["id"] = "sshh";
+		arrayobj["telnum"] = "15610307603";
+		root.append(arrayobj);
+
+		arrayobj["id"] = "awlh";
+		arrayobj["telnum"] = "15645609680";
+		root.append(arrayobj);
+
+		arrayobj["id"] = "ehb";
+		arrayobj["telnum"] = "15623709603";
+		root.append(arrayobj);
+
+		arrayobj["id"] = "cqqq";
+		arrayobj["telnum"] = "15234709248";
+		root.append(arrayobj);
+
+		arrayobj["id"] = "rly";
+		arrayobj["telnum"] = "15230409212";
+		root.append(arrayobj);
+	}
+	is.close();//关闭读入文件流
+	ofstream ofs;
+	ofs.open(filename);
+
+	ofs << root.toStyledString();
+	ofs.close();
+
+}
+void readJson(const char *filename){//读入json信息
+
+	//map<string, string> usr;
+	ifstream is(filename, ios::binary);
+	if (!is.is_open()){
+		cout << "open json file failed" << endl;
+		exit(1);
+	}
+	Json::Reader reader;
+	Json::Value arrayobj;
+	Json::Value Item;
+	if (!reader.parse(is, arrayobj)){
+		cout << "读取json格式错误" << endl;
+		exit(1);
+	}
+	for (int i = 0; i < arrayobj.size(); i++){
+		string id = arrayobj[i]["id"].asString();
+		string telnum = arrayobj[i]["telnum"].asString();
+		usrdata[id] = telnum;
+	}
+	is.close();
+
+}
+int main()
+{
+	/*writeJson("userinfo.json");
+	readJson("userinfo.json");
+	withFltk();*/
+
+	Simple_window win{ Point{100, 100}, 600, 400, "Mywin"};
+	win.begin();
+	Fl_Box box(100, 100, 100, 100, "aaa");
+	box.show();
+	win.end();
+	win.show();
+	//return Fl::run();
+	win.wait_for_button();
+	
+	/*Simple_window mywin(Point(10,10), 300, 1000,"mywin");
+	mywin.begin();
+
+	Fl_Box box(100,100, 100, 100, "aaa");
+	
+	mywin.end();
+
+	mywin.show();
+
+	
+	return Fl::run();*/
+
+
+	//using Graph_lib::Window;
+	//Window win(WIDTH, HEIGHT, "Try");
+
+	/*
+	//Fl_Window win(WIDTH, HEIGHT, "Try");
+	Background tel(0, 0, WIDTH, HEIGHT);
+	Fl_PNG_Image  tel_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\tel.png");
+	tel.image(tel_png);
+
+	Background bg(0, 0, WIDTH, HEIGHT);
+	Fl_PNG_Image  bg_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\bg.png");
+	bg.image(bg_png);
+
+	ImageButton        btn(MARGIN, HEIGHT - 64 - MARGIN, 64, 64, &bg);
+	Fl_PNG_Image  btn_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\button\\i1.png");
+	btn.image(btn_png);
+	*/
+
+	//FL_window 只能实现绘图，但是不能回调函数
+	//window不能实现绘图，但是能实现回调函数
+	//MyButton w{0,0,323,699 };
+	//win.show();
+	//W7 w(700, 500, "aaa");
+	//return gui_main();
+	
+	
+	
+	
+	/*Fl_Window     win(WIDTH, HEIGHT);
+	Fl_Box tel(0, 0, WIDTH, HEIGHT);
+	Fl_PNG_Image  tel_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\tel.png");
+	tel.image(tel_png);
+
+	Fl_Box bg(0, 0, WIDTH, HEIGHT);
+	Fl_PNG_Image  bg_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\bg.png");
+	bg.image(bg_png);
+
+	MyButton        btn(MARGIN, HEIGHT - 64 - MARGIN, 64, 64, &bg);
+	Fl_PNG_Image  btn_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\button\\i1.png");
+	btn.image(btn_png);
+	win.show();
+	return Fl::run();
+	*/
+	//只有一个window窗口，上面还需要依附两个widget
+	//W7 win(WIDTH, HEIGHT, "GUI");
+
+	//Button *bg = new Button(Point{ 0, 0 }, WIDTH, HEIGHT, "startup", NULL);
+	//Fl_PNG_Image  *bg_png = new Fl_PNG_Image("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\bg.png");
+	//bg->image(bg_png);
+	//Fl_PNG_Image  bg_png("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\bg.png");
+
+	//usrbutton *btn = new usrbutton(Point{ 50, 600 }, 50, 50, "通讯录", cb_disappear);
+	
+	
+	//Widget *a = new Widget(Point{ 0, 0 }, 323, 699, "", NULL);
+	//Fl_PNG_Image  *bg_png  = new Fl_PNG_Image("C:\\Users\\Wzing\\Desktop\\Files\\courses\\ProgramingAndAlgorithm\\fltk_test\\img\\bg.png");
+	//a->image(bg_png);
+	
+
+	//win.show();
+
+	//return Fl::run();
+
+
+	//writeJson("userinfo.json");
+	//readJson("userinfo.json");
+
+	//return 0;
+
+}
+

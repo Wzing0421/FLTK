@@ -1,0 +1,339 @@
+
+//
+// This is a GUI support code to the chapters 12-16 of the book
+// "Programming -- Principles and Practice Using C++" by Bjarne Stroustrup
+//
+
+#ifndef GUI_GUARD
+#define GUI_GUARD
+
+#include "Window.h"
+#include "Graph.h"
+#include "json.h"
+
+#include <iostream>
+#include <map>
+#include <string>
+#include <cstring>
+#include <stdlib.h>
+#include <FL/Fl_PNG_Image.H>
+#include "FL/Fl_Input.H"
+extern int posInusrinfo;
+extern map<string, string>usrdata;
+
+namespace Graph_lib {
+
+	
+
+//------------------------------------------------------------------------------
+
+    typedef void* Address;    // Address is a synonym for void*
+    typedef void(*Callback)(Address, Address);    // FLTK's required function type for all callbacks
+
+//------------------------------------------------------------------------------
+
+    template<class W> W& reference_to(Address pw)
+    // treat an address as a reference to a W
+    {
+        return *static_cast<W*>(pw);
+    }
+
+//------------------------------------------------------------------------------
+
+    class Widget {
+    // Widget is a handle to an Fl_widget - it is *not* an Fl_widget
+    // We try to keep our interface classes at arm's length from FLTK
+    public:
+        Widget(Point xy, int w, int h, const string& s, Callback cb)
+            : loc(xy), width(w), height(h), label(s), do_it(cb)
+        {}
+
+        virtual void move(int dx,int dy) { hide(); pw->position(loc.x+=dx, loc.y+=dy); show(); }
+        virtual void hide() { pw->hide(); }
+        virtual void show() { pw->show(); }
+        virtual void attach(Window&) {};
+
+        void image(Fl_Image *img) { pw->image(img); }
+
+        Point loc;
+        int width;
+        int height;
+        string label;
+        Callback do_it;
+
+        virtual ~Widget() { }
+
+    protected:
+        Window* own;    // every Widget belongs to a Window
+        Fl_Widget* pw;  // connection to the FLTK Widget
+    private:
+        Widget& operator=(const Widget&); // don't copy Widgets
+        Widget(const Widget&);
+    };
+
+//------------------------------------------------------------------------------
+
+    struct Button : Widget {
+        Button(Point xy, int w, int h, const string& label, Callback cb)
+            : Widget(xy,w,h,label,cb)
+        {  }
+
+        void attach(Window&);
+    };
+
+//------------------------------------------------------------------------------
+
+    struct In_box : Widget {
+        In_box(Point xy, int w, int h, const string& s)
+            :Widget(xy,w,h,s,0) { }
+        int get_int();
+        string get_string();
+
+        void attach(Window& win);
+    };
+
+//------------------------------------------------------------------------------
+
+    struct Out_box : Widget {
+        Out_box(Point xy, int w, int h, const string& s)
+            :Widget(xy,w,h,s,0) { }
+        void put(int);
+        void put(const string&);
+
+        void attach(Window& win);
+    };
+
+//------------------------------------------------------------------------------
+
+    struct Menu : Widget {
+        enum Kind { horizontal, vertical };
+        Menu(Point xy, int w, int h, Kind kk, const string& label)
+            : Widget(xy,w,h,label,0), k(kk), offset(0)
+        {}
+
+        Vector_ref<Button> selection;
+        Kind k;
+        int offset;
+        int attach(Button& b);      // Menu does not delete &b
+        int attach(Button* p);      // Menu deletes p
+
+        void show()                 // show all buttons
+        {
+            for (unsigned int i = 0; i<selection.size(); ++i)
+                selection[i].show();
+        }
+        void hide()                 // hide all buttons
+        {
+            for (unsigned int i = 0; i<selection.size(); ++i) 
+                selection[i].hide(); 
+        }
+        void move(int dx, int dy)   // move all buttons
+        {
+            for (unsigned int i = 0; i<selection.size(); ++i) 
+                selection[i].move(dx,dy);
+        }
+
+        void attach(Window& win)    // attach all buttons
+        {
+            for (int i=0; i<selection.size(); ++i) win.attach(selection[i]);
+            own = &win;
+        }
+
+    };
+
+    class Background : public Fl_Box
+    {
+    public:
+        Background(int x, int y, int w, int h) :
+            Fl_Box(x, y, w, h) {  }
+    };
+
+    class ImageButton : public Fl_Box
+    {
+        Fl_Box *bg;
+        int handle(int event) {
+            switch (event)
+            {
+			case FL_PUSH: printf("Button clicked.\n");
+				bg->hide();
+				hide();
+				break;
+                // printf("Button clicked.\n");
+            };
+            return 0;
+        }
+    public:
+        ImageButton(int x, int y, int w, int h, Fl_Box* box) :
+            Fl_Box(x, y, w, h), bg(box) {  }
+    };
+
+
+	class namebutton :public Fl_Box{//用户信息按钮，需要重载点击函数，实现用户名字和电话号码的切换
+	public:
+		bool sw;
+		int handle(int event){
+			switch (event)
+			{
+			case FL_PUSH://点击之后查询map的key返回value,或者查询value返回key
+				if (sw == true){//如果是名字，则切换成电话号码
+					
+					string thisname = this->label();
+					const char * thisnum = this->getTelnum(thisname).c_str();
+					//label(this->getTelnum(thisname).c_str());
+					this->label("abm");
+					sw = false;
+				}
+				else{//如果是电话号码，则切换成名字
+
+					//string thistelnum = this->label();
+					//cout << "namebuttonclicked2: " << thistelnum << endl;
+					//label(this->getUsrname(thistelnum).c_str());
+					//label((thistelnum + "!").c_str());
+					sw = true;
+					cout << sw << endl;
+				}
+				break;
+			default:
+				break;
+			}
+			return 0;
+		}
+		namebutton(int x, int y, int w, int h) :Fl_Box(x, y, w, h), sw{true}{}
+		//namebutton初定设置就是一个Fl_Box,初始化sw=1表示显示名字，sw=0表示显示电话号码
+		string getTelnum(string name);
+		string getUsrname(string telnum);
+	};
+
+	class upbutton :public Fl_Box{//上下键按钮
+	public:
+		namebutton *list[10];
+		map<string, string> ::iterator it;
+		int handle(int event){
+			switch (event)
+			{
+			case FL_PUSH:
+				//your logic
+				if (posInusrinfo >= 1){//如果不是第一页
+					it = usrdata.begin();
+					for (int i = 0; i < 10 * (posInusrinfo - 1); i++) it++;//定位到上一页的第一个位置
+
+					int cnt = 0;
+					while (cnt <= 9 && it != usrdata.end()){
+						list[cnt]->label(it->first.data());//改名字
+						it++;
+						cnt++;
+					}
+					//for (int last = 9; last > cnt; last--) list[last]->label("");//这里不需要这句话因为上一页肯定是满的
+					posInusrinfo--;
+				}
+				cout << posInusrinfo << endl;
+				break;
+			default:
+				break;
+			}
+			return 0;
+		}
+
+		upbutton(int x, int y, int w, int h, namebutton* usrlist[]) :Fl_Box(x, y, w, h) {
+			for (int i = 0; i < 10; i++){
+				list[i] = usrlist[i];
+			}
+			cout << "----------------" << endl;
+			map<string, string> ::iterator it;
+			for (it = usrdata.begin(); it != usrdata.end(); it++){
+				cout << it->first << ' ' << it->second << endl;
+			}
+			cout << "----------------" << endl;
+		}
+
+	};
+
+	class downbutton : public Fl_Box{
+		
+	public:
+		namebutton *list[10];
+		map<string, string> ::iterator it;
+		int handle(int event){
+			switch (event)
+			{
+			case FL_PUSH:
+				//your logic
+				if (10 * (posInusrinfo + 1) < usrdata.size()){//如果下一页还有用户
+					it = usrdata.begin();
+					for (int i = 0; i < 10 * (posInusrinfo + 1); i++) it++;//定位到下一页的第一个位置
+
+					int cnt = 0;
+					while (cnt <= 9 && it != usrdata.end()){
+						list[cnt]->label(it->first.data());//改名字
+						it++;
+						cnt++;
+					}
+					for (int last = 9; last > cnt; last--) list[last]->label("");//把空余部分设置为空
+					posInusrinfo++;
+				}
+				cout << posInusrinfo << endl;
+				break;
+			default:
+				break;
+			}
+			return 0;
+		}
+
+		downbutton(int x, int y, int w, int h, namebutton* usrlist[]) :Fl_Box(x, y, w, h) {
+			for (int i = 0; i < 10; i++){
+				list[i] = usrlist[i];
+			}
+		}
+	};
+
+	class W7 : public Window{
+	public:
+		W7(int w, int h, const string &t);
+		Button *p1;
+		Button *p2;
+		Button *p3;
+		Button *p4;
+		Button *p5;
+		Button *p6;
+		Button *p7;
+		Button *p8;
+
+		void sh();
+		static void cb_sh(Address, Address addr){
+			reference_to < W7 >(addr).sh();
+		}
+	};
+
+
+	/*
+	我准备在Mybutton和w7这两个类上面实现主要的功能：
+	MyButton类实现的是加载图片，然后点击通讯录按钮就转换到通讯录界面；
+	window按钮实现的功能是：通讯录界面的显示，以及上面的按钮点击之后的响应
+	*/
+	class MyButton : public Fl_Box{
+	public:
+		Fl_Box *im;
+		W7 *usr;
+		//MyButton(int x, int y, int w, int h, Fl_Box *box):Fl_Box(x, y, w, h), im(box) {  }//构造函数
+		MyButton(int x, int y, int w, int h, Fl_Box *box);//构造函数
+		int handle(int event){//重载了点击事件
+			switch (event){
+			case FL_PUSH:
+				change();
+				break;
+			default:
+				break;
+			}
+			return 0;
+		}
+		void change();
+		/*static void cb_change(Address, Address addr){
+			reference_to <MyButton>(addr).change();
+		}*/
+	};
+	
+//------------------------------------------------------------------------------
+
+} // of namespace Graph_lib
+
+#endif // GUI_GUARD
